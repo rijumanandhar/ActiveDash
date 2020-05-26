@@ -1,4 +1,4 @@
-package com.example.activedash;
+package com.example.activedash.loginregister;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.activedash.R;
 
 public class LoginRegisterActivity extends AppCompatActivity {
     private Fragment fragment;

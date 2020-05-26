@@ -1,9 +1,12 @@
-package com.example.activedash;
+package com.example.activedash.main;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.example.activedash.run.RunFragment;
+import com.example.activedash.profile.ProfileFragment;
 
 public class MainPagerAdapter extends FragmentPagerAdapter {
 

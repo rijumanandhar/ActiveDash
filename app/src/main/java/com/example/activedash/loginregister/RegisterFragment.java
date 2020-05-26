@@ -1,12 +1,10 @@
-package com.example.activedash;
+package com.example.activedash.loginregister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -17,14 +15,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.activedash.main.MainActivity;
+import com.example.activedash.R;
+import com.example.activedash.Repository;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 
 /**
@@ -46,8 +45,6 @@ public class RegisterFragment extends Fragment {
     public final int GALLERY_INT = 2;
 
     private StorageReference mStorage;
-
-    private Uri imageUri;
 
     Repository repository;
 
@@ -87,8 +84,6 @@ public class RegisterFragment extends Fragment {
             }
         });
 
-
-
         return rootView;
     }
 
@@ -115,7 +110,7 @@ public class RegisterFragment extends Fragment {
                     repository.insertUserData(user_id,name,email,username,dob,"default");
                     progressDialog.dismiss();
 
-                    Intent mainIntent = new Intent(getActivity(),MainActivity.class);
+                    Intent mainIntent = new Intent(getActivity(), MainActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(mainIntent);
                 }
