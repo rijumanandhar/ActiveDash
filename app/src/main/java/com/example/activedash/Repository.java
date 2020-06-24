@@ -18,26 +18,57 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Date;
+
 public class Repository {
     private static final String TAG = "This is "+Repository.class.getSimpleName();
 
     private DatabaseReference dbUser;
-
+    private DatabaseReference dbRun;
     private StorageReference userPicStorage;
 
     public Repository(){
         Log.d(TAG,"Repository Created");
         dbUser = FirebaseDatabase.getInstance().getReference().child("user");
+        dbRun =  FirebaseDatabase.getInstance().getReference().child("run");
         userPicStorage = FirebaseStorage.getInstance().getReference().child("user_profile");
     }
 
-    public void insertUserData(String uid,String name, String email, String username, String dob, String picture){
+    public void insertRunData(String userid, Date date, double distance, long timetaken, int stepCount, int coins){
+        DatabaseReference mRef = dbRun.push();
+        mRef.child("userid").setValue(userid);
+        mRef.child("date").setValue(date.getYear()+"/"+date.getMonth()+"/"+date.getDay());
+        mRef.child("distance").setValue(distance);
+        mRef.child("timetaken").setValue(timetaken);
+        mRef.child("stepCount").setValue(stepCount);
+        mRef.child("coins").setValue(coins);
+    }
+
+    public void insertUserData(String uid,String name, String email, String username,
+                               String dob, String picture, double height, int level,
+                               int stepCount, int points, long exp, long expCap){
         DatabaseReference mRef = dbUser.child(uid);
         mRef.child("name").setValue(name);
         mRef.child("username").setValue(username);
         mRef.child("email").setValue(email);
         mRef.child("dob").setValue(dob);
         mRef.child("picture").setValue(picture);
+        mRef.child("height").setValue(height);
+        mRef.child("level").setValue(level);
+        mRef.child("higheststep").setValue(stepCount);
+        mRef.child("point").setValue(points);
+        mRef.child("exp").setValue(exp);
+        mRef.child("expcap").setValue(expCap);
+    }
+
+    public void updatePlayerData(String uid,int level,
+                                 int stepCount, int points, long exp, long expCap){
+        DatabaseReference mRef = dbUser.child(uid);
+        mRef.child("level").setValue(level);
+        mRef.child("higheststep").setValue(stepCount);
+        mRef.child("point").setValue(points);
+        mRef.child("exp").setValue(exp);
+        mRef.child("expcap").setValue(expCap);
     }
 
     public void insertUserPhoto(final String uid, Uri imageUri){

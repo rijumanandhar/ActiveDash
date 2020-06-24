@@ -204,7 +204,7 @@ public class LoginFragment extends Fragment {
                             String personEmail = acct.getEmail();
                             String personId = acct.getId();
                             Uri personPhoto = acct.getPhotoUrl();
-                            repository.insertUserData(user_id,personName,personEmail,personEmail,"","default");
+                            repository.insertUserData(user_id,personName,personEmail,personEmail,"","default",0,1,0,0,0,150);
                             Log.d(TAG,"Adding Data");
                         }
                     }

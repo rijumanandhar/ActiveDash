@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -46,7 +45,7 @@ public class ProfileFragment extends Fragment {
     private TextView logoutText;
     private ImageButton profilePicBtn;
 
-    private EditText nameText, emailText, usernameText;
+    private TextView nameText, emailText, usernameText, heightText, levelText, highStepCount, pointEarned, expText;
 
     DatabaseReference db_user;
 
@@ -149,6 +148,18 @@ public class ProfileFragment extends Fragment {
                 nameText.setText(dataSnapshot.child("name").getValue().toString());
                 emailText.setText(dataSnapshot.child("email").getValue().toString());
                 usernameText.setText(dataSnapshot.child("username").getValue().toString());
+                levelText.setText(dataSnapshot.child("level").getValue().toString());
+                highStepCount.setText(dataSnapshot.child("higheststep").getValue().toString());
+                pointEarned.setText(dataSnapshot.child("point").getValue().toString());
+                int exp = Integer.parseInt(dataSnapshot.child("exp").getValue().toString());
+                int expCap = Integer.parseInt(dataSnapshot.child("expcap").getValue().toString());
+                float expPer = (float) exp / expCap*100 ;
+                Log.d("offset profile","exp: "+exp+" expCap: "+expCap+" exp/expCap: "+exp/expCap+" (exp/expCap)*100: "+(exp/expCap)*100+" expPer: "+expPer);
+                expText.setText(expPer+"%");
+                String height = dataSnapshot.child("height").getValue().toString();
+                if (!height.equals("0")){
+                    heightText.setText(height+" cm");
+                }
                 String picture = dataSnapshot.child("picture").getValue().toString();
                 if (!picture.equals("default")){
                     Picasso.get().load(picture).into(profilePicBtn);
@@ -164,6 +175,11 @@ public class ProfileFragment extends Fragment {
         usernameText = rootView.findViewById(R.id.usernameTextView);
         profilePicBtn = rootView.findViewById(R.id.imageButton);
         logoutText = rootView.findViewById(R.id.logoutText);
+        heightText = rootView.findViewById(R.id.heightTextView);
+        levelText = rootView.findViewById(R.id.levelTextView);
+        highStepCount = rootView.findViewById(R.id.stepTextView);
+        pointEarned = rootView.findViewById(R.id.coinsTextView);
+        expText = rootView.findViewById(R.id.expTextView);
 
         usernameText.setText("0");
 

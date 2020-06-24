@@ -40,8 +40,6 @@ public class RegisterFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-    private ImageButton uploadPicBtn;
-
     public final int GALLERY_INT = 2;
 
     private StorageReference mStorage;
@@ -67,7 +65,6 @@ public class RegisterFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
 
-        uploadPicBtn = rootView.findViewById(R.id.uploadImageButton);
         signUpBtn = rootView.findViewById(R.id.signUpButton);
 
         nameText = rootView.findViewById(R.id.nameText);
@@ -107,7 +104,7 @@ public class RegisterFragment extends Fragment {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     String user_id = mAuth.getCurrentUser().getUid();
                     Log.d(TAG,"user_id "+user_id);
-                    repository.insertUserData(user_id,name,email,username,dob,"default");
+                    repository.insertUserData(user_id,name,email,username,dob,"default",0,1,0,0,0,150);
                     progressDialog.dismiss();
 
                     Intent mainIntent = new Intent(getActivity(), MainActivity.class);
