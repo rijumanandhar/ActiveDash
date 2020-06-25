@@ -18,7 +18,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Repository {
     private static final String TAG = "This is "+Repository.class.getSimpleName();
@@ -34,14 +36,19 @@ public class Repository {
         userPicStorage = FirebaseStorage.getInstance().getReference().child("user_profile");
     }
 
-    public void insertRunData(String userid, Date date, double distance, long timetaken, int stepCount, int coins){
+    public String insertRunData(String userid, Date date, double distance, long timetaken, int stepCount, int coins){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
+        String updatedAt = dateFormat.format(date);
         DatabaseReference mRef = dbRun.push();
+        String runid = mRef.getKey();
+        Log.d("offset",runid);
         mRef.child("userid").setValue(userid);
-        mRef.child("date").setValue(date.getYear()+"/"+date.getMonth()+"/"+date.getDay());
+        mRef.child("date").setValue(updatedAt);
         mRef.child("distance").setValue(distance);
         mRef.child("timetaken").setValue(timetaken);
         mRef.child("stepCount").setValue(stepCount);
         mRef.child("coins").setValue(coins);
+        return runid;
     }
 
     public void insertUserData(String uid,String name, String email, String username,

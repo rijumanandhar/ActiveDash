@@ -37,9 +37,9 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
 
     private static final String TAG = "ScoreCalculatorFragment";
 
-    private TextView tv_steps, tv_distance;
+    private TextView tv_steps;
 
-    private Button reset_button,start_button,stop_button;
+    private Button start_button,stop_button;
 
     private SensorManager sensorManager;
 
@@ -65,30 +65,20 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
         ScoreActivityViewModel.scoreCalculatorDisplay = true;
         rootView = inflater.inflate(R.layout.fragment_score_calculater, container, false);
         tv_steps = rootView.findViewById(R.id.tv_steps);
-        reset_button = rootView.findViewById(R.id.button_reset);
-        start_button = rootView.findViewById(R.id.button_start);
+        //start_button = rootView.findViewById(R.id.button_start);
         stop_button = rootView.findViewById(R.id.button_stop);
-        tv_distance = rootView.findViewById(R.id.tv_distance);
         chronometer = rootView.findViewById(R.id.chronometer_timer);
 
-        start_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                start();
-            }
-        });
+//        start_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
 
         stop_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stop();
-            }
-        });
-
-        reset_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reset();
             }
         });
 
@@ -102,6 +92,7 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
         }
 
         setupViewModel();
+        start();
         return rootView;
     }
 
@@ -163,13 +154,10 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
     public void calculateScore(){
 
             viewModel.calculateDistance(viewModel.getCount());
-            Log.d("offset","Distance is "+viewModel.getDistance());
             long newExp = viewModel.calculateNewExp(viewModel.getCount(),viewModel.getElapsedMillis());
-            Log.d("offset","New Exp is "+newExp);
             long currentExp = viewModel.calculateCurrentExp();
-            Log.d("offset","Current Exp is "+currentExp);
             if (currentExp>=viewModel.getExpCap()){
-                Log.d("offset","Current Exp is greate than ExpCap "+currentExp+" > than "+viewModel.getExpCap());
+                Log.d("offset","Current Exp is greater than ExpCap "+currentExp+" > than "+viewModel.getExpCap());
                 viewModel.setLevel(viewModel.getLevel()+1);
                 long expDiff = currentExp-viewModel.getExpCap();
                 viewModel.setExp(expDiff);
@@ -183,11 +171,12 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
                 viewModel.setHighestep(viewModel.getCount());
             }
 
-            viewModel.setPoint(newExp);
+            viewModel.setOldPoint(newExp);
             viewModel.updatePlayerData(ScoreActivityViewModel.userid, viewModel.getLevel(),
-                    viewModel.getHighestep(),viewModel.getPoint(),viewModel.getExp(),viewModel.getExpCap());
+                    viewModel.getHighestep(),viewModel.getOldPoint(),viewModel.getExp(),viewModel.getExpCap());
             viewModel.insertRunData();
-            //replaceFragment();
+            resetViewModel();
+            replaceFragment();
     }
 
     private void setupViewModel() {
@@ -229,25 +218,21 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
         super.onPause();
         super.onPause();
         Log.d(TAG,"onPause");
-        //the sensor will stop detecting steps
-        //sensorManager.unregisterListener(this);
         long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
         viewModel.setElapsedMillis(elapsedMillis);
     }
 
-    public void reset(){
+    public void resetViewModel(){
+        //the sensor will stop detecting steps
         //sensorManager.unregisterListener(this);
-        tv_steps.setText("0");
         viewModel.setCount(0);
-//        information = information + " reset";
-//        info.setText(information);
-        tv_distance.setText("0");
-        timerExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                chronometer.setBase(SystemClock.elapsedRealtime());
-            }
-        });
+//        timerExecutor.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                chronometer.setBase(SystemClock.elapsedRealtime());
+//            }
+//        });
+        viewModel.setElapsedMillis(0);
     }
 
     public void replaceFragment(){

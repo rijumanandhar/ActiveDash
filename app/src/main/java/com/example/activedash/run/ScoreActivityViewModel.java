@@ -17,11 +17,13 @@ import java.util.Date;
 
 public class ScoreActivityViewModel extends AndroidViewModel {
     public static boolean scoreCalculatorDisplay = false;
-    private FirebaseQueryLiveData liveData;
+    public static String runID;
+    private FirebaseQueryLiveData userLiveData, runLiveData;
     private DatabaseReference dbUser = FirebaseDatabase.getInstance().getReference().child("user");
+    private DatabaseReference dbRun = FirebaseDatabase.getInstance().getReference().child("run");
     private Repository repository = new Repository();
 
-    private int level, highestep, point;
+    private int level, highestep, oldPoint, newPoint;
 
     public ScoreActivityViewModel(@NonNull Application application) {
         super(application);
@@ -60,8 +62,8 @@ public class ScoreActivityViewModel extends AndroidViewModel {
         this.stride = height * 0.43;
     }
 
-    public double getDistance() {
-        return distance;
+    public double getNewPoint() {
+        return newPoint;
     }
 
     public void setupMagnitude(double x_acceleration, double y_acceleration, double z_acceleration){
@@ -89,14 +91,14 @@ public class ScoreActivityViewModel extends AndroidViewModel {
 
     @NonNull
     public LiveData<DataSnapshot> getUserDataSnapshotLiveData(String uid) {
-        liveData = new FirebaseQueryLiveData(dbUser.child(uid));
-        return liveData;
+        userLiveData = new FirebaseQueryLiveData(dbUser.child(uid));
+        return userLiveData;
     }
 
     public void setUserData(String level, String highestep, String point, String exp, String expCap,String height){
         this.level = Integer.parseInt(level);
         this.highestep = Integer.parseInt(highestep);
-        this.point = Integer.parseInt(point);
+        this.oldPoint = Integer.parseInt(point);
         this.exp = Integer.parseInt(exp);
         this.expCap = Integer.parseInt(expCap);
         this.height = Double.parseDouble(height);
@@ -141,16 +143,16 @@ public class ScoreActivityViewModel extends AndroidViewModel {
         this.highestep = highestep;
     }
 
-    public void setPoint(long exp) {
+    public void setOldPoint(long exp) {
         int iexp = (int) exp;
         float offset = (float) 20 / 100;
         float pointss = offset*iexp;
-        this.point = this.point + (int)pointss;
-        Log.d("offset vm","calculatePoints: exp: "+exp+" iexp: "+iexp+" offset: "+offset+" pointss: "+pointss+" this.point: "+this.point);
+        this.newPoint = (int) pointss;
+        this.oldPoint = this.oldPoint + this.newPoint;
     }
 
-    public int getPoint() {
-        return point;
+    public int getOldPoint() {
+        return oldPoint;
     }
 
     public void setExp(long exp) {
@@ -167,6 +169,12 @@ public class ScoreActivityViewModel extends AndroidViewModel {
 
     public void insertRunData(){
         Date date = new Date();
-       repository.insertRunData(this.userid, date,this.distance,this.elapsedMillis/1000,this.count, this.point);
+        runID = repository.insertRunData(this.userid, date,this.distance,this.elapsedMillis/1000,this.count, this.newPoint);
+    }
+
+    @NonNull
+    public LiveData<DataSnapshot> getRunDataSnapshotLiveData(String runid) {
+        runLiveData = new FirebaseQueryLiveData(dbRun.child(runid));
+        return runLiveData;
     }
 }
