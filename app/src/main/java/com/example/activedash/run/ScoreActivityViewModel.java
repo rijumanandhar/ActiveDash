@@ -177,4 +177,8 @@ public class ScoreActivityViewModel extends AndroidViewModel {
         runLiveData = new FirebaseQueryLiveData(dbRun.child(runid));
         return runLiveData;
     }
+
+    public void insertLeaderBoard(){
+        repository.insertToLeaderBoard(this.userid,highestep,oldPoint);
+    }
 }

@@ -166,12 +166,11 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
                 Log.d("offset","Current Exp is less than ExpCap"+currentExp+" "+viewModel.getExpCap());
                 viewModel.setExp(currentExp);
             }
-
+            viewModel.setOldPoint(newExp);
             if (viewModel.getCount() > viewModel.getHighestep()){
                 viewModel.setHighestep(viewModel.getCount());
+                viewModel.insertLeaderBoard();
             }
-
-            viewModel.setOldPoint(newExp);
             viewModel.updatePlayerData(ScoreActivityViewModel.userid, viewModel.getLevel(),
                     viewModel.getHighestep(),viewModel.getOldPoint(),viewModel.getExp(),viewModel.getExpCap());
             viewModel.insertRunData();

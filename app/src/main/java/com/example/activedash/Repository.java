@@ -27,6 +27,9 @@ public class Repository {
 
     private DatabaseReference dbUser;
     private DatabaseReference dbRun;
+    private DatabaseReference dbLeaderBoard;
+    private DatabaseReference dbQuestUser;
+    private DatabaseReference dbBadgeUser;
     private StorageReference userPicStorage;
 
     public Repository(){
@@ -121,5 +124,11 @@ public class Repository {
         mRef.child("username").setValue(username);
         mRef.child("dob").setValue(dob);
         mRef.child("height").setValue(height);
+    }
+
+    public void insertToLeaderBoard(String uid, int stepcount, int coins){
+        dbLeaderBoard = FirebaseDatabase.getInstance().getReference().child("leaderboard").child(uid);
+        dbLeaderBoard.child("stepcount").setValue(stepcount);
+        dbLeaderBoard.child("coins").setValue(coins);
     }
 }

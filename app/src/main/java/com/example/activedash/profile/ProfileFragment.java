@@ -28,13 +28,17 @@ import com.example.activedash.R;
 import com.example.activedash.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseReference;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -54,12 +58,14 @@ public class ProfileFragment extends Fragment {
     private ImageButton profilePicBtn;
     private Button editProfileBtn;
     private Dialog dialogWithMessage;
+    GraphView graph;
 
     ProfileViewModel viewModel;
 
     private TextView nameText, emailText, usernameText, heightText, levelText, highStepCount, pointEarned, expText, dobText;
 
-    DatabaseReference db_user;
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    LineGraphSeries series;
 
     Repository repository;
 
@@ -186,6 +192,28 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
+        LiveData<DataSnapshot> runLiveData = viewModel.getRunDataSnapshotLiveData(userId);
+        runLiveData.observe(this, new Observer<DataSnapshot>() {
+            @Override
+            public void onChanged(DataSnapshot dataSnapshot) {
+                DataPoint[] dp = new DataPoint[(int)dataSnapshot.getChildrenCount()];
+                int index = 0;
+                for (DataSnapshot myData:dataSnapshot.getChildren()){
+                    try{
+                        String dateString = myData.child("date").getValue().toString();
+                        int stepCount = Integer.parseInt(myData.child("stepCount").getValue().toString());
+                        Date date = sdf.parse(dateString);
+                        long longDate=date.getTime();
+                        dp[index] = new DataPoint(longDate,stepCount);
+                        index ++;
+                    }catch (ParseException e){
+                        Log.d(TAG,"date upparsable");
+                    }
+                }
+                series.resetData(dp);
+            }
+        });
     }
 
     private void initializeComponents(View rootView){
@@ -203,15 +231,19 @@ public class ProfileFragment extends Fragment {
         dobText = rootView.findViewById(R.id.dobTextView);
         editProfileBtn = rootView.findViewById(R.id.editProfileButton);
 
-        GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
+        graph = (GraphView) rootView.findViewById(R.id.graph);
+        series = new LineGraphSeries();
         graph.addSeries(series);
+        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+            @Override
+            public String formatLabel(double value, boolean isValueX) {
+                if (isValueX){
+                    return new SimpleDateFormat("yyyy/MM/dd").format(new Date((long) value));
+                }else
+                return super.formatLabel(value, isValueX);
+            }
+        });
 
         usernameText.setText("0");
 
