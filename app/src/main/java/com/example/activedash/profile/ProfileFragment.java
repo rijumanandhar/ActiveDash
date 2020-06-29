@@ -1,6 +1,9 @@
 package com.example.activedash.profile;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,6 +18,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,6 +29,9 @@ import com.example.activedash.Repository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -44,8 +52,12 @@ public class ProfileFragment extends Fragment {
 
     private TextView logoutText;
     private ImageButton profilePicBtn;
+    private Button editProfileBtn;
+    private Dialog dialogWithMessage;
 
-    private TextView nameText, emailText, usernameText, heightText, levelText, highStepCount, pointEarned, expText;
+    ProfileViewModel viewModel;
+
+    private TextView nameText, emailText, usernameText, heightText, levelText, highStepCount, pointEarned, expText, dobText;
 
     DatabaseReference db_user;
 
@@ -78,6 +90,13 @@ public class ProfileFragment extends Fragment {
                 }
             }
         };
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfile();
+            }
+        });
 
         profilePicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,7 +157,7 @@ public class ProfileFragment extends Fragment {
     private void updateUI(){
         Log.d(TAG,"inside updateUI");
         ProfileViewModelFactory factory = new ProfileViewModelFactory(this,userId);
-        ProfileViewModel viewModel= ViewModelProviders.of(this,factory).get(ProfileViewModel.class);
+        viewModel= ViewModelProviders.of(this,factory).get(ProfileViewModel.class);
 
         LiveData<DataSnapshot> liveData = viewModel.getDataSnapshotLiveData();
 
@@ -148,6 +167,7 @@ public class ProfileFragment extends Fragment {
                 nameText.setText(dataSnapshot.child("name").getValue().toString());
                 emailText.setText(dataSnapshot.child("email").getValue().toString());
                 usernameText.setText(dataSnapshot.child("username").getValue().toString());
+                dobText.setText(dataSnapshot.child("dob").getValue().toString());
                 levelText.setText(dataSnapshot.child("level").getValue().toString());
                 highStepCount.setText(dataSnapshot.child("higheststep").getValue().toString());
                 pointEarned.setText(dataSnapshot.child("point").getValue().toString());
@@ -158,7 +178,7 @@ public class ProfileFragment extends Fragment {
                 expText.setText(expPer+"%");
                 String height = dataSnapshot.child("height").getValue().toString();
                 if (!height.equals("0")){
-                    heightText.setText(height+" cm");
+                    heightText.setText(height+"");
                 }
                 String picture = dataSnapshot.child("picture").getValue().toString();
                 if (!picture.equals("default")){
@@ -180,11 +200,74 @@ public class ProfileFragment extends Fragment {
         highStepCount = rootView.findViewById(R.id.stepTextView);
         pointEarned = rootView.findViewById(R.id.coinsTextView);
         expText = rootView.findViewById(R.id.expTextView);
+        dobText = rootView.findViewById(R.id.dobTextView);
+        editProfileBtn = rootView.findViewById(R.id.editProfileButton);
+
+        GraphView graph = (GraphView) rootView.findViewById(R.id.graph);
+        LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
+        graph.addSeries(series);
 
         usernameText.setText("0");
 
         repository = new Repository();
 
         mAuth = FirebaseAuth.getInstance();
+    }
+
+    public void editProfile(){
+        dialogWithMessage = new Dialog(getActivity());
+        dialogWithMessage.setContentView(R.layout.floating_edit_profile);
+
+        final EditText nameEt, usernameEt, dobEt, heightEt;
+        Button editBtn;
+
+        nameEt = dialogWithMessage.findViewById(R.id.nameTextFloat);
+        usernameEt = dialogWithMessage.findViewById(R.id.userNameTextFloat);
+        dobEt = dialogWithMessage.findViewById(R.id.dobTextFloat);
+        heightEt = dialogWithMessage.findViewById(R.id.weightTextFloat);
+        editBtn = dialogWithMessage.findViewById(R.id.editButtonFloat);
+
+        nameEt.setText(nameText.getText());
+        usernameEt.setText(usernameText.getText());
+        dobEt.setText(dobText.getText());
+        if (heightText.getText().toString().equals("--")){
+            heightEt.setText("0");
+        }else{
+            heightEt.setText(heightText.getText());
+        }
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String editedName = nameEt.getText().toString();
+                String username = usernameEt.getText().toString();
+                String dob = dobEt.getText().toString();
+                try{
+                    double height =Double.parseDouble(heightEt.getText().toString());
+                    //validate username
+                    if (validateUsername(username)){
+                        viewModel.updateUserInfo(editedName, username, dob, height);
+                        dialogWithMessage.dismiss();
+                    }else{
+                        Log.d(TAG,"username not valid");
+                    }
+                }catch (NumberFormatException e){
+                    Log.d(TAG,"height isn't in number");
+                }
+            }
+        });
+
+        dialogWithMessage.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogWithMessage.show();
+    }
+
+    public boolean validateUsername(String username){
+        return true;
     }
 }

@@ -38,6 +38,7 @@
                 android:text="User Information" />
 
             <Button
+                android:id="@+id/editProfileButton"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_width="25dp"
@@ -104,13 +105,35 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Date of Birth" />
+            <TextView
+                android:id="@+id/dobTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="yyyy/mm/dd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Height" />
             <TextView
                 android:id="@+id/heightTextView"
                 style="@style/profileInfoText"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="-- cm" />
+                android:text="--" />
+            <TextView
+                style="@style/profileInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm" />
         </LinearLayout>
 
         <TextView
@@ -195,6 +218,11 @@
             style="@style/infoLabel"
             android:text="Progress Chart"
             android:layout_gravity="left" />
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/graph" />
 
         <TextView
             android:layout_width="wrap_content"

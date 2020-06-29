@@ -115,5 +115,11 @@ public class Repository {
         });
     }
 
-
+    public void updateUserInfo(String uid, String editedName, String username, String dob, double height){
+        DatabaseReference mRef = dbUser.child(uid);
+        mRef.child("name").setValue(editedName);
+        mRef.child("username").setValue(username);
+        mRef.child("dob").setValue(dob);
+        mRef.child("height").setValue(height);
+    }
 }
