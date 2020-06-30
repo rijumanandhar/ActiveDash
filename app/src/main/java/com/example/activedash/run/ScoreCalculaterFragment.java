@@ -217,19 +217,25 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
     public void resetViewModel(){
         //the sensor will stop detecting steps
         //sensorManager.unregisterListener(this);
-        viewModel.setCount(0);
+        //viewModel.setCount(0);
 //        timerExecutor.execute(new Runnable() {
 //            @Override
 //            public void run() {
 //                chronometer.setBase(SystemClock.elapsedRealtime());
 //            }
 //        });
-        viewModel.setElapsedMillis(0);
+        //viewModel.setElapsedMillis(0);
     }
 
     public void replaceFragment(){
-        //replace fragment
-        Fragment fragment = new ScoreDisplayFragment();
+        //replace fragment double distance, int point, int steps, long time, long exp,int level
+        ScoreDisplayFragment fragment = ScoreDisplayFragment.newInstance(
+                viewModel.getDistance(),
+                viewModel.getNewPoint(),
+                viewModel.getCount(),
+                viewModel.getElapsedMillis(),
+                viewModel.getNewExp(),
+                viewModel.getLevel());
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.scoreContainer, fragment);

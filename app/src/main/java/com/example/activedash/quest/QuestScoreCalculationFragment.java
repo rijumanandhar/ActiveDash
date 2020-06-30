@@ -255,8 +255,8 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
     public void resetViewModel(){
         //the sensor will stop detecting steps
         //sensorManager.unregisterListener(this);
-        questViewModel.setCount(0);
-        questViewModel.setElapsedMillis(0);
+        //questViewModel.setCount(0);
+        //questViewModel.setElapsedMillis(0);
     }
 
     public void replaceFragment(){

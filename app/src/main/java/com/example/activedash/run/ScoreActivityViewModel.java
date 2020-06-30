@@ -64,7 +64,11 @@ public class ScoreActivityViewModel extends AndroidViewModel {
         this.stride = height * 0.43;
     }
 
-    public double getNewPoint() {
+    public void setNewPoint(int newPoint) {
+        this.newPoint = newPoint;
+    }
+
+    public int getNewPoint() {
         return newPoint;
     }
 
@@ -89,6 +93,14 @@ public class ScoreActivityViewModel extends AndroidViewModel {
     public void calculateDistance(int steps){
         double distanceInF = stride * steps;
         distance = distanceInF/3.28;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     @NonNull
@@ -124,6 +136,14 @@ public class ScoreActivityViewModel extends AndroidViewModel {
     public long calculateCurrentExp(){
         currExp = exp + newExp;
         return currExp;
+    }
+
+    public long getNewExp() {
+        return newExp;
+    }
+
+    public void setNewExp(long newExp) {
+        this.newExp = newExp;
     }
 
     public long getExpCap() {
