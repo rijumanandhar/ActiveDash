@@ -231,6 +231,11 @@
             android:text="Badges"
             android:layout_gravity="left" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/badgesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
         <TextView
             android:id="@+id/logoutText"
             android:layout_width="wrap_content"

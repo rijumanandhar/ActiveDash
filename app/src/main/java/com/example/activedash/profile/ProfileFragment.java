@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,13 +23,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.activedash.loginregister.LoginRegisterActivity;
 import com.example.activedash.R;
 import com.example.activedash.Repository;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -59,6 +67,8 @@ public class ProfileFragment extends Fragment {
     private Button editProfileBtn;
     private Dialog dialogWithMessage;
     GraphView graph;
+    RecyclerView badges;
+    Query badgeRef;
 
     ProfileViewModel viewModel;
 
@@ -68,6 +78,7 @@ public class ProfileFragment extends Fragment {
     LineGraphSeries series;
 
     Repository repository;
+    FirebaseRecyclerAdapter<UserBadge, BadgeViewHolder> firebaseRecyclerAdapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -80,8 +91,6 @@ public class ProfileFragment extends Fragment {
         Log.d(TAG,"Profile Fragment On Create");
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        initializeComponents(rootView);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -96,6 +105,9 @@ public class ProfileFragment extends Fragment {
                 }
             }
         };
+
+
+        initializeComponents(rootView);
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +178,22 @@ public class ProfileFragment extends Fragment {
         viewModel= ViewModelProviders.of(this,factory).get(ProfileViewModel.class);
 
         LiveData<DataSnapshot> liveData = viewModel.getDataSnapshotLiveData();
+
+        Log.d("sad","inside update ui "+userId);
+        badgeRef = FirebaseDatabase.getInstance().getReference().child("user_badge").orderByChild("userid").equalTo(userId);
+       firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<UserBadge, BadgeViewHolder>(
+                UserBadge.class,
+                R.layout.single_badge,
+                BadgeViewHolder.class,
+                badgeRef
+        ) {
+            @Override
+            protected void populateViewHolder(BadgeViewHolder badgeViewHolder, UserBadge badge, int i) {
+                badgeViewHolder.setBadgeTitle(badge.getBadgename());
+                badgeViewHolder.setIcon(badge.getIcon());
+            }
+        };
+        badges.setAdapter(firebaseRecyclerAdapter);
 
         liveData.observe(this, new Observer<DataSnapshot>() {
             @Override
@@ -244,6 +272,12 @@ public class ProfileFragment extends Fragment {
                 return super.formatLabel(value, isValueX);
             }
         });
+        badges = rootView.findViewById(R.id.badgesRecyclerView);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),3);
+        badges.setHasFixedSize(true);
+        badges.setLayoutManager(gridLayoutManager);
+
 
         usernameText.setText("0");
 
@@ -300,6 +334,30 @@ public class ProfileFragment extends Fragment {
     }
 
     public boolean validateUsername(String username){
+        if (username.equals("")){
+            Toast.makeText(getActivity(),"Username cannnot be empty",Toast.LENGTH_LONG).show();
+            return false;
+        }
         return true;
+    }
+
+    public static class BadgeViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+        ImageView badgeIcon;
+        TextView badgeTv ;
+        public BadgeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+            badgeIcon = itemView.findViewById(R.id.badgeImage);
+            badgeTv = itemView.findViewById(R.id.badgeTitle);
+        }
+
+        public void setBadgeTitle(String title){
+            badgeTv.setText(title);
+        }
+
+        public void setIcon(String icon){
+            Picasso.get().load(icon).into(badgeIcon);
+        }
     }
 }

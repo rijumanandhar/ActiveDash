@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.activedash.R;
 import com.example.activedash.loginregister.LoginRegisterActivity;
+import com.example.activedash.profile.ProfileViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {

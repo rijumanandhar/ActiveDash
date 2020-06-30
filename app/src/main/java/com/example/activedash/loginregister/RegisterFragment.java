@@ -6,7 +6,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.activedash.FirebaseQueryLiveData;
 import com.example.activedash.main.MainActivity;
 import com.example.activedash.R;
 import com.example.activedash.Repository;
@@ -22,6 +27,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -95,8 +104,8 @@ public class RegisterFragment extends Fragment {
         final String dob = dobText.getText().toString().trim();
 
         //validation
-        if (validate() == "success"){
-            Log.d(TAG,"validate vitra");
+        if (validate(name,username,email,password,cPassword,dob)){
+            Log.d("sad","validate is true");
             progressDialog.setMessage("Signing Up");
             progressDialog.show();
             mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -115,7 +124,16 @@ public class RegisterFragment extends Fragment {
         }
     }
 
-    public String validate (){
-        return "success";
+    public boolean validate (String name, String username, String email, String password, String cpassword, String dob){
+        if (!name.equals("")&& !username.equals("")&& !password.equals("")&& !email.equals("")&& !cpassword.equals("")&& !dob.equals("")){
+            if (password.equals(cpassword) ){
+                return true;
+            }else{
+                Toast.makeText(getActivity(),"Passwords don't match",Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(getActivity(),"Empty Fields",Toast.LENGTH_LONG).show();
+        }
+        return false;
     }
 }

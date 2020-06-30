@@ -17,7 +17,7 @@ import com.google.firebase.database.Query;
 public class ProfileViewModel extends ViewModel {
     private DatabaseReference dbUser = FirebaseDatabase.getInstance().getReference().child("user");
     private final FirebaseQueryLiveData liveData;
-    String uid;
+    public static String uid;
 
     public ProfileViewModel(Fragment fragment, String uid){
         this.uid = uid;
