@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".quest.QuestActivity"></activity>
+        <activity android:name=".leaderboard.LeaderBoardActivity"></activity>
+        <activity android:name=".quest.QuestActivity" />
         <activity android:name=".run.ScoreActivity" />
         <activity android:name=".loginregister.LoginRegisterActivity" />
         <activity android:name=".main.MainActivity">

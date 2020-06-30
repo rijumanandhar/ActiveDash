@@ -65,15 +65,8 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
         ScoreActivityViewModel.scoreCalculatorDisplay = true;
         rootView = inflater.inflate(R.layout.fragment_score_calculater, container, false);
         tv_steps = rootView.findViewById(R.id.tv_steps);
-        //start_button = rootView.findViewById(R.id.button_start);
         stop_button = rootView.findViewById(R.id.button_stop);
         chronometer = rootView.findViewById(R.id.chronometer_timer);
-
-//        start_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
 
         stop_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +106,6 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
             }
             //tv_steps.setText(String.valueOf(event.values[0]));
         }
-
     }
 
     @Override
@@ -198,13 +190,14 @@ public class ScoreCalculaterFragment extends Fragment implements SensorEventList
             liveUserData.observe(getViewLifecycleOwner(), new Observer<DataSnapshot>() {
                 @Override
                 public void onChanged(DataSnapshot dataSnapshot) {
+                    String username = dataSnapshot.child("username").getValue().toString();
                     String level = dataSnapshot.child("level").getValue().toString();
                     String higeststep = dataSnapshot.child("higheststep").getValue().toString();
                     String pointEarned = dataSnapshot.child("point").getValue().toString();
                     String exp = dataSnapshot.child("exp").getValue().toString();
                     String expCap = dataSnapshot.child("expcap").getValue().toString();
                     String height = dataSnapshot.child("height").getValue().toString();
-                    viewModel.setUserData(level,higeststep,pointEarned,exp,expCap,height);
+                    viewModel.setUserData(username,level,higeststep,pointEarned,exp,expCap,height);
                 }
             });
         }catch (NullPointerException e){

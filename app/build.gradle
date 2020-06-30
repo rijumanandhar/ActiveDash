@@ -72,6 +72,9 @@ dependencies {
 
     //graphview
     implementation 'com.jjoe64:graphview:4.2.2'
+
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

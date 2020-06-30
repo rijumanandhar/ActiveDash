@@ -11,8 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.activedash.R;
+import com.example.activedash.leaderboard.LeaderBoardActivity;
+import com.example.activedash.quest.QuestActivity;
+import com.example.activedash.quest.QuestViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -25,6 +29,8 @@ public class RunFragment extends Fragment {
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private String userid;
+    private TextView leaderBoardText;
+    private TextView questText;
 
     public RunFragment() {
         // Required empty public constructor
@@ -58,6 +64,29 @@ public class RunFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        questText = rootView.findViewById(R.id.questTextView);
+        leaderBoardText = rootView.findViewById(R.id.leaderboardTextView);
+
+        questText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), QuestActivity.class);
+                QuestViewModel.displayedFragment =  QuestViewModel.LIST_DISPLAY;
+                if (userid != null){
+                    intent.putExtra("userid", userid);
+                }
+                startActivity(intent);
+            }
+        });
+
+        leaderBoardText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LeaderBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         return  rootView;
     }

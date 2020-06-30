@@ -48,7 +48,7 @@ public class ScoreDisplayFragment extends Fragment {
 
     private void intViewComponent(){
         distanceTv = rootView.findViewById(R.id.distanceTextView);
-        coinsTv = rootView.findViewById(R.id.coinsEarnedTextView);
+        coinsTv = rootView.findViewById(R.id.pointsEarnedTextView);
         stepsTv = rootView.findViewById(R.id.stepCountTextView);
         timeTv = rootView.findViewById(R.id.timeTakenTextView);
 

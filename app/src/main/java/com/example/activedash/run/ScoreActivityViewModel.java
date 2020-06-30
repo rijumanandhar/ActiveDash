@@ -33,6 +33,8 @@ public class ScoreActivityViewModel extends AndroidViewModel {
 
     public static String userid;
 
+    public String username;
+
     private double magnitudePrev =0,magnitude=0,magnitudeDelta=0;
 
     private boolean running = false;
@@ -95,7 +97,8 @@ public class ScoreActivityViewModel extends AndroidViewModel {
         return userLiveData;
     }
 
-    public void setUserData(String level, String highestep, String point, String exp, String expCap,String height){
+    public void setUserData(String username,String level, String highestep, String point, String exp, String expCap,String height){
+        this.username = username;
         this.level = Integer.parseInt(level);
         this.highestep = Integer.parseInt(highestep);
         this.oldPoint = Integer.parseInt(point);
@@ -179,6 +182,6 @@ public class ScoreActivityViewModel extends AndroidViewModel {
     }
 
     public void insertLeaderBoard(){
-        repository.insertToLeaderBoard(this.userid,highestep,oldPoint);
+        repository.insertToLeaderBoard(this.userid,username,highestep,oldPoint);
     }
 }

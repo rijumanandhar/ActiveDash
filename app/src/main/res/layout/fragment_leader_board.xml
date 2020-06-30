@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".quest.SelectQuestFragment">
+    tools:context=".leaderboard.LeaderBoardFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/questRecyclerView"
+        android:id="@+id/leaderboardRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

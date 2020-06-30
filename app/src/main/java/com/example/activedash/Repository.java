@@ -126,9 +126,27 @@ public class Repository {
         mRef.child("height").setValue(height);
     }
 
-    public void insertToLeaderBoard(String uid, int stepcount, int coins){
+    public void insertToLeaderBoard(String uid,String username, int stepcount, int point){
         dbLeaderBoard = FirebaseDatabase.getInstance().getReference().child("leaderboard").child(uid);
+        dbLeaderBoard.child("username").setValue(username);
         dbLeaderBoard.child("stepcount").setValue(stepcount);
-        dbLeaderBoard.child("coins").setValue(coins);
+        dbLeaderBoard.child("point").setValue(point);
+    }
+
+    public void insertUserQuestData(String uid, String questid,int pointsearned, long expgained, String status){
+        dbQuestUser = FirebaseDatabase.getInstance().getReference().child("user_quest").push();
+        dbQuestUser.child("userid").setValue(uid);
+        dbQuestUser.child("questid").setValue(questid);
+        dbQuestUser.child("points").setValue(pointsearned);
+        dbQuestUser.child("exp").setValue(expgained);
+        dbQuestUser.child("status").setValue(status);
+    }
+
+    public void insertUserBadge(String uid, String bid, String iconUri, String badgename){
+        dbBadgeUser = FirebaseDatabase.getInstance().getReference().child("user_badge").push();
+        dbBadgeUser.child("userid").setValue(uid);
+        dbBadgeUser.child("batchid").setValue(bid);
+        dbBadgeUser.child("icon").setValue(iconUri);
+        dbBadgeUser.child("badgename").setValue(badgename);
     }
 }
