@@ -56,6 +56,25 @@ dependencies {
 
     //firebase cloud messaging
     implementation 'com.google.firebase:firebase-messaging:20.1.7'
+
+    //image cropper
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+    //picasso library
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //lifecycle
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //google fit
+    implementation 'com.google.android.gms:play-services-fitness:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
+
+    //graphview
+    implementation 'com.jjoe64:graphview:4.2.2'
+
+    //recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

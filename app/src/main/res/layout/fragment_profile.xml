@@ -1,15 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment">
+    tools:context=".profile.ProfileFragment">
 
-    <TextView
-        android:id="@+id/logoutText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logout"
-       />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp">
 
-</FrameLayout>
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/border"
+            android:scaleType="fitCenter"
+            android:src="@drawable/default_01"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap to change" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/infoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Information" />
+
+            <Button
+                android:id="@+id/editProfileButton"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/ic_edit" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+            <TextView
+                android:id="@+id/nameText"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email" />
+            <TextView
+                android:id="@+id/emailText"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username" />
+            <TextView
+                android:id="@+id/usernameTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="username" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth" />
+            <TextView
+                android:id="@+id/dobTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="yyyy/mm/dd" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Height" />
+            <TextView
+                android:id="@+id/heightTextView"
+                style="@style/profileInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--" />
+            <TextView
+                style="@style/profileInfoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/infoLabel"
+            android:text="Player Info"
+            android:layout_gravity="left"
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Level" />
+            <TextView
+                android:id="@+id/levelTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Highest Step Count" />
+            <TextView
+                android:id="@+id/stepTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Points Earned" />
+            <TextView
+                android:id="@+id/coinsTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/profileInfoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exp: " />
+            <TextView
+                android:id="@+id/expTextView"
+                style="@style/profileInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="--" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/infoLabel"
+            android:text="Progress Chart"
+            android:layout_gravity="left" />
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/graph" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/infoLabel"
+            android:text="Badges"
+            android:layout_gravity="left" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/badgesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:id="@+id/logoutText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/infoLabel"
+            android:text="Logout"
+            android:layout_gravity="left" />
+
+    </LinearLayout>
+
+
+</ScrollView>

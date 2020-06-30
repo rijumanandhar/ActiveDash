@@ -1,4 +1,4 @@
-package com.example.activedash;
+package com.example.activedash.loginregister;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.activedash.main.MainActivity;
+import com.example.activedash.R;
+import com.example.activedash.Repository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -175,7 +178,7 @@ public class LoginFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        Intent mainIntent = new Intent(getActivity(),MainActivity.class);
+                        Intent mainIntent = new Intent(getActivity(), MainActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mainIntent);
                     }else{
@@ -201,7 +204,7 @@ public class LoginFragment extends Fragment {
                             String personEmail = acct.getEmail();
                             String personId = acct.getId();
                             Uri personPhoto = acct.getPhotoUrl();
-                            repository.insertUserData(user_id,personName,personEmail,personEmail,"","default");
+                            repository.insertUserData(user_id,personName,personEmail,personEmail,"","default",0,1,0,0,0,150);
                             Log.d(TAG,"Adding Data");
                         }
                     }
