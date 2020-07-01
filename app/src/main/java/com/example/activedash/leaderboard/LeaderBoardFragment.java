@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,11 @@ import com.example.activedash.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class LeaderBoardFragment extends Fragment {
     RecyclerView leaderBoardList;
-    DatabaseReference leaderBoardRef;
+    Query leaderBoardRef;
 
     public LeaderBoardFragment() {
         // Required empty public constructor
@@ -36,7 +38,7 @@ public class LeaderBoardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_leader_board, container, false);
         leaderBoardList = rootView.findViewById(R.id.leaderboardRecyclerView);
-        leaderBoardRef = FirebaseDatabase.getInstance().getReference().child("leaderboard");
+        leaderBoardRef = FirebaseDatabase.getInstance().getReference().child("leaderboard").orderByChild("point");
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setReverseLayout(true);
@@ -61,6 +63,7 @@ public class LeaderBoardFragment extends Fragment {
                 leaderBoardViewHolder.setUsername(leader.getUsername());
                 leaderBoardViewHolder.setPoint(leader.getPoint());
                 leaderBoardViewHolder.setStep(leader.getStepcount());
+                Log.d("sad",leader.getUsername());
             }
         };
         leaderBoardList.setAdapter(firebaseRecyclerAdapter);

@@ -18,24 +18,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/leaderBoardTitle"
             android:text="Username" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/leaderBoardTitle"
             android:text="Points Earned" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/leaderBoardTitle"
             android:text="Highest Step" />
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent"/>
 
     <FrameLayout
         android:id="@+id/leaderBoardContainer"
         android:layout_width="match_parent"
-        android:layout_height="700dp"/>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,18 +10,61 @@
 
     <style name="profileInfoLabel">
         <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:fontFamily">@font/cardo</item>
     </style>
 
     <style name="profileInfoText">
         <item name="android:textSize">18sp</item>
         <item name="android:padding">5dp</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:fontFamily">@font/cardo</item>
         <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="leaderBoardText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:fontFamily">@font/cardo</item>
+    </style>
+
+    <style name="leaderBoardTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/cardo</item>
     </style>
 
     <style name="infoLabel">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:fontFamily">@font/cardo</item>
+    </style>
+
+    <style name="run_text_label">
+        <item name="android:fontFamily">@font/cardo</item>
+        <item name="android:textSize">35sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="login_editText">
+        <item name="android:background">@drawable/border</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textColorHint">@color/colorSecondary</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="login_button">
+        <item name="android:fontFamily">@font/cardo</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 </resources>

@@ -11,20 +11,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="20dp">
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            style="@style/infoLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Profile" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:background="@drawable/border"
             android:scaleType="fitCenter"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
             android:src="@drawable/default_01"/>
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorSecondary"
+            android:fontFamily="@font/cardo"
             android:text="Tap to change" />
 
         <LinearLayout
@@ -54,7 +65,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name" />
+                android:text="Name: " />
             <TextView
                 android:id="@+id/nameText"
                 style="@style/profileInfoText"
@@ -71,7 +82,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email" />
+                android:text="Email: " />
             <TextView
                 android:id="@+id/emailText"
                 style="@style/profileInfoText"
@@ -88,7 +99,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Username" />
+                android:text="Username: " />
             <TextView
                 android:id="@+id/usernameTextView"
                 style="@style/profileInfoText"
@@ -105,7 +116,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth" />
+                android:text="Date of Birth: " />
             <TextView
                 android:id="@+id/dobTextView"
                 style="@style/profileInfoText"
@@ -122,7 +133,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Height" />
+                android:text="Height: " />
             <TextView
                 android:id="@+id/heightTextView"
                 style="@style/profileInfoText"
@@ -152,7 +163,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Level" />
+                android:text="Level: " />
             <TextView
                 android:id="@+id/levelTextView"
                 style="@style/profileInfoText"
@@ -169,7 +180,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Highest Step Count" />
+                android:text="Highest Step Count: " />
             <TextView
                 android:id="@+id/stepTextView"
                 style="@style/profileInfoText"
@@ -186,7 +197,7 @@
                 style="@style/profileInfoLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Points Earned" />
+                android:text="Points Earned: " />
             <TextView
                 android:id="@+id/coinsTextView"
                 style="@style/profileInfoText"

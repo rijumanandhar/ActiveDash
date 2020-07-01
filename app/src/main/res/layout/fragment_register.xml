@@ -10,63 +10,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mainRegisterLayout"
-        android:padding="20dp"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Name"
-            android:padding="10dp"/>
+            style="@style/login_editText"/>
 
         <EditText
             android:id="@+id/userNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:hint="Enter Username"
-            android:padding="10dp"/>
+            style="@style/login_editText" />
 
         <EditText
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Enter Email"
             android:inputType="textEmailAddress"
-            android:padding="10dp"/>
+            style="@style/login_editText" />
 
         <EditText
             android:id="@+id/passwordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Enter Password"
             android:inputType="textPassword"
-            android:padding="10dp"/>
+            style="@style/login_editText" />
 
         <EditText
             android:id="@+id/cPasswordText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Confirm Password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            style="@style/login_editText" />
 
         <EditText
             android:id="@+id/dobText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
             android:hint="Date of Birth"
-            android:inputType="date"/>
+            android:inputType="date"
+            style="@style/login_editText" />
 
         <Button
             android:id="@+id/signUpButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/login_button"
             android:text="Sign Up"/>
     </LinearLayout>
 
