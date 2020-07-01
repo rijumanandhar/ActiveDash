@@ -21,24 +21,24 @@ organizing access to the back-end logic around the set of use cases supported by
 ## Features
 
 * Register
-<img src="https://imgur.com/a/FGL9HEo.gif" width="300" height="590">
+<img src="https://imgur.com/fGJ9Qsv.gif" width="300" height="590">
 
 * Sign In with google
-<img src="https://imgur.com/a/FAbRNff.gif" width="300" height="590">
+<img src="https://imgur.com/9twnhX4.gif" width="300" height="590">
 
 * Login
 * Profile
 * Logout
-<img src="https://imgur.com/a/l5kVKG1.gif" width="300" height="590">
+<img src="https://imgur.com/TIIYXE0.gif" width="300" height="590">
 
 * Run
-<img src="https://imgur.com/a/lvtO3wH.gif" width="300" height="590">
+<img src="https://imgur.com/BnlgPTe.gif" width="300" height="590">
 
 * Leaderboard
-<img src="https://imgur.com/a/MJBK09O.gif" width="300" height="590">
+<img src="https://imgur.com/lashf1o.gif" width="300" height="590">
 
 * Quest
-<img src="https://imgur.com/a/qbULiiJ.gif" width="300" height="590">
+<img src="https://imgur.com/regv3Tq.gif" width="300" height="590">
 
 # External Libraries Used
 * Firebase
