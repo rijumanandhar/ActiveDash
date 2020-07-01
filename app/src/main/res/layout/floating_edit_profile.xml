@@ -3,7 +3,7 @@
     android:layout_width="300dp"
     android:layout_height="350dp"
     android:orientation="vertical"
-    android:background="#CCCCFF"
+    android:background="@color/colorWhite"
     android:layout_gravity="center"
     android:padding="25dp">
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Name"
-            android:padding="10dp"/>
+            style="@style/login_editText"/>
 
         <EditText
             android:id="@+id/userNameTextFloat"
@@ -28,13 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Enter Username"
-            android:padding="10dp"/>
+            style="@style/login_editText"/>
 
         <EditText
             android:id="@+id/dobTextFloat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/login_editText"
             android:hint="Date of Birth"
             android:inputType="date"/>
 
@@ -42,14 +42,15 @@
             android:id="@+id/weightTextFloat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/login_editText"
             android:hint="Weight in kg" />
 
         <Button
             android:id="@+id/editButtonFloat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"/>
+            android:text="Edit"
+            style="@style/login_button"/>
     </LinearLayout>
 
 </LinearLayout>

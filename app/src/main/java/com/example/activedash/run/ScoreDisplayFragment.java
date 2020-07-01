@@ -83,10 +83,12 @@ public class ScoreDisplayFragment extends Fragment {
 
         backButton = rootView.findViewById(R.id.backButton);
 
-        distanceTv.setText(viewModel.getDistance()+"");
+        long time = viewModel.getElapsedMillis()/1000;
+
+        distanceTv.setText(String.format("%.2f", viewModel.getDistance())+" cm");
         pointTv.setText(viewModel.getNewPoint()+"");
         stepsTv.setText(viewModel.getCount()+"");
-        timeTv.setText(viewModel.getElapsedMillis()+"");
+        timeTv.setText(time+" sec");
         levelTv.setText(viewModel.getLevel()+"");
         expTv.setText(viewModel.getNewExp()+"");
 
@@ -101,7 +103,7 @@ public class ScoreDisplayFragment extends Fragment {
 
     }
 
-    public void goToMainActivity(){
+    private void goToMainActivity(){
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }

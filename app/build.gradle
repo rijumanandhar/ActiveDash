@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.activedash"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -75,6 +75,9 @@ dependencies {
 
     //recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //animatedgifs
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 }
 
 apply plugin: 'com.google.gms.google-services'

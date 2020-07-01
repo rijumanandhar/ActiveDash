@@ -96,7 +96,7 @@ public class QuestScoreDisplayFragment extends Fragment {
         }else{
             successTv.setText("Quest Failed!");
         }
-        distanceTv.setText(questViewModel.getDistanceDis()+"");
+        distanceTv.setText(String.format("%.2f", questViewModel.getDistanceDis())+"cm");
         long time = questViewModel.getElapsedMillis() / 1000;
         timeTakenTv.setText(time+" seconds");
         pointEarnedTv.setText(questViewModel.getPointRewardedCal()+"");

@@ -31,6 +31,8 @@ import com.google.firebase.database.DataSnapshot;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import pl.droidsonroids.gif.GifImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link QuestScoreCalculationFragment#newInstance} factory method to
@@ -54,6 +56,8 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
     private SensorManager sensorManager;
 
     private Chronometer chronometer;
+
+    GifImageView imageView;
 
     private View rootView;
 
@@ -101,6 +105,7 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
         chronometer = rootView.findViewById(R.id.quest_chronometer_timer);
         tv_steps_goal = rootView.findViewById(R.id.quest_step_goal);
         tv_points_goal = rootView.findViewById(R.id.quest_points);
+        imageView = rootView.findViewById(R.id.run_gif);
 
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +145,7 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
                 chronometer.setBase(SystemClock.elapsedRealtime()-elapsedMillis);
                 if (questViewModel.isRunning()){
                     chronometer.start();
+                    imageView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -168,18 +174,30 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
             @Override
             public void onChanged(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String badgeID = snapshot.getKey();
+                    QuestViewModel.batchid = snapshot.getKey();
                     String icon =snapshot.child("icon").getValue().toString();
                     String name = snapshot.child("name").getValue().toString();
-                    questViewModel.setBadgeData(badgeID,icon,name);
-                    Log.d("sad","badge id "+badgeID);
+                    questViewModel.setBadgeData(QuestViewModel.batchid,icon,name);
                 }
+                LiveData<DataSnapshot> userBadgeData = questViewModel.checkUserBadgeSnapshotLiveData(QuestViewModel.batchid);
+                userBadgeData.observe(getViewLifecycleOwner(), new Observer<DataSnapshot>() {
+                    @Override
+                    public void onChanged(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            String user = snapshot.child("userid").getValue().toString();
+                            if (user.equals(QuestViewModel.userid)){
+                                QuestViewModel.setBadge = false;
+                            }
+                        }
+                    }
+                });
             }
         });
     }
 
     public void start() {
         questViewModel.setRunning(true);
+        imageView.setVisibility(View.VISIBLE);
         timerExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -197,6 +215,7 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
 
     public void stop() {
         questViewModel.setRunning(false);
+        imageView.setVisibility(View.INVISIBLE);
         timerExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -212,7 +231,6 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
         if (questViewModel.getCount()>=questViewModel.getStepGoalCal()){
             questViewModel.setStatus("complete");
         }
-
         questViewModel.calculateDistance(questViewModel.getCount());
         long newExp = questViewModel.calculateNewExp(questViewModel.getCount(),questViewModel.getElapsedMillis());
         long currentExp = questViewModel.calculateCurrentExp();
@@ -236,7 +254,7 @@ public class QuestScoreCalculationFragment extends Fragment implements SensorEve
         questViewModel.updatePlayerData(QuestViewModel.userid, questViewModel.getLevel(),
                 questViewModel.getHighestep(),questViewModel.getOldPoint(),questViewModel.getExp(),questViewModel.getExpCap());
         questViewModel.insertUserQuestData();
-        if(questViewModel.getStatus().equals("complete")){
+        if(questViewModel.getStatus().equals("complete")  && questViewModel.setBadge){
             questViewModel.insertUserBadge();
         }
         resetViewModel();

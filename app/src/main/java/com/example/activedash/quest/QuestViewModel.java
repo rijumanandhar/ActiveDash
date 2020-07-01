@@ -22,6 +22,8 @@ public class QuestViewModel extends AndroidViewModel {
     public static final String CALC_DISPLAY = "scoreCalQuest";
     public static String displayedFragment;
     public static String userid;
+    public static String batchid;
+    public static boolean setBadge =true;
 
     private FirebaseQueryLiveData userLiveData, runLiveData;
     private DatabaseReference dbUser = FirebaseDatabase.getInstance().getReference().child("user");
@@ -183,6 +185,12 @@ public class QuestViewModel extends AndroidViewModel {
     @NonNull
     public LiveData<DataSnapshot> getBadgeSnapshotLiveData(String qid) {
         Query query = dbBadge.orderByChild("questid").equalTo(qid);
+        return new FirebaseQueryLiveData(query);
+    }
+
+    @NonNull
+    public LiveData<DataSnapshot> checkUserBadgeSnapshotLiveData(String bid) {
+        Query query = FirebaseDatabase.getInstance().getReference().child("user_badge").orderByChild("batchid").equalTo(bid);
         return new FirebaseQueryLiveData(query);
     }
 

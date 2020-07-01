@@ -1,6 +1,7 @@
 package com.example.activedash.profile;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import com.example.activedash.loginregister.LoginRegisterActivity;
 import com.example.activedash.R;
 import com.example.activedash.Repository;
+import com.example.activedash.main.MainActivity;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -59,6 +61,8 @@ public class ProfileFragment extends Fragment {
     private final int GALLERYPICK =2;
     private String userId;
 
+    public Context mContext;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -84,6 +88,11 @@ public class ProfileFragment extends Fragment {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,7 +105,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() == null){
-                    Intent loginRegisterIntent = new Intent(getContext(), LoginRegisterActivity.class);
+                    Intent loginRegisterIntent = new Intent(mContext, LoginRegisterActivity.class);
                     loginRegisterIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //user can't go back
                     startActivity(loginRegisterIntent );
                 }else{
